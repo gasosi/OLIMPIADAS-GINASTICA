@@ -2,11 +2,11 @@ const modalidades = ["Ginástica", "Judô", "Surfe", "Vôlei"];
 
 //Com base na constante modalidade, 
 //Coloque o número que represente o esporte do seu grupo
-const escolha = ?;
+const escolha = 0;
 
-document.querySelector('body').style.backgroundImage = "url('img/"+modalidades[escolha]+".png')";
-document.querySelector('title').textContent = "Missão Olímpica | "+modalidades[escolha];
-document.querySelector('h1').innerHTML = "Missão Olímpica <br> "+modalidades[escolha];
+document.querySelector('body').style.backgroundImage = "url('img/" + modalidades[escolha] + ".png')";
+document.querySelector('title').textContent = "Missão Olímpica | " + modalidades[escolha];
+document.querySelector('h1').innerHTML = "Missão Olímpica <br> " + modalidades[escolha];
 
 const caixaPrincipal = document.querySelector(".caixa-principal");
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
@@ -14,6 +14,7 @@ const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
 
+let pontos = 0;
 let atual = 0;
 let perguntaAtual;
 let historiaFinal = "";
@@ -22,8 +23,8 @@ let historiaFinal = "";
 //Crie uma variável com o nome pontos que inicie com 0
 
 
-function mostraPergunta(){
-    if(atual >= perguntas[escolha].length){
+function mostraPergunta() {
+    if (atual >= perguntas[escolha].length) {
         mostraResultado();
         return;
     }
@@ -33,8 +34,8 @@ function mostraPergunta(){
     mostraAlternativas();
 }
 
-function mostraAlternativas(){
-    for(const alternativa of perguntaAtual.alternativas){
+function mostraAlternativas() {
+    for (const alternativa of perguntaAtual.alternativas) {
         const botaoAlternativas = document.createElement("button");
         botaoAlternativas.textContent = alternativa.texto;
         botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
@@ -42,7 +43,7 @@ function mostraAlternativas(){
     }
 }
 
-function respostaSelecionada(opcaoSelecionada){
+function respostaSelecionada(opcaoSelecionada) {
     const afirmacao = opcaoSelecionada.afirmacao;
     historiaFinal += afirmacao + " ";
     atual++;
@@ -51,13 +52,36 @@ function respostaSelecionada(opcaoSelecionada){
     mostraPergunta();
 }
 
-function mostraResultado(){
+function mostraResultado() {
     textoResultado.textContent = historiaFinal;
     caixaPerguntas.textContent = "Resultado";
     caixaAlternativas.textContent = "";
+    podiumMedalhas();
     // chame a função podiumMedalhas aqui
-    
+
 }
+
+function podiumMedalhas() {
+    if (pontos == 3) {
+        caixaPrincipal.style.backgroundImage = "url('img/bronze.png')";
+        mostraResultado.textContent = " 3 pontos é BRONZE!";
+    };
+
+    if (pontos == 4) {
+        caixaPrincipal.style.backgroundImage = "url('img/prata.png')";
+        mostraResultado.textContent = " 4 pontos é PRATA!";
+    };
+
+    if (pontos == 5) {
+        caixaPrincipal.style.backgroundImage = "url('img/ouro.png')";
+        mostraResultado.textContent = " 5 pontos é OURO!";
+    };
+
+};
+if (pontos < 3) {
+    caixaPrincipal.style.backgroundImage = "url('img/perdeu.png')";
+};
+
 
 //crie uma função podiumMedalhas
 //E verifique a quantidade de pontos
