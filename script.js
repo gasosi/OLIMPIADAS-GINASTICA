@@ -2,7 +2,7 @@ const modalidades = ["Ginástica", "Judô", "Surfe", "Vôlei"];
 
 //Com base na constante modalidade, 
 //Coloque o número que represente o esporte do seu grupo
-const escolha = 0;
+const escolha = 1;
 
 document.querySelector('body').style.backgroundImage = "url('img/" + modalidades[escolha] + ".png')";
 document.querySelector('title').textContent = "Missão Olímpica | " + modalidades[escolha];
